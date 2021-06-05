@@ -15,11 +15,13 @@ public class Scope {
         types     = new HashMap<String,Type>();
     }
 
-    boolean new_func( String name, String[] in, String[] out ){ return functions.put   (name,new Function(name,in,out,this))!=null; }
+    //boolean new_func( String name, String[] in, String[] out ){ return functions.put (name,new Function(name,in,out,this))!=null; }
+    boolean new_func( String name, String[] args ){ return functions.put (name,new Function(name,args,this))!=null; }
     boolean new_func( String name ){ return functions.put   (name,new Function(name))!=null; }
     boolean del_func( String name ){ return functions.remove(name)!=null; }
     
-    boolean new_type( String name ){ return types.put   (name,new Type(name))!=null; }
+    boolean new_type( String name, String parrent ){ Type par=find_type(parrent); return new_type( name, par ); }
+    boolean new_type( String name, Type parrent ){ return types.put   (name,new Type(name,parrent))!=null; }
     boolean del_type( String name ){ return types.remove(name)!=null; }
     
     boolean new_var( String name, String typeName ){ return new_var( name, types.get(typeName)); }

@@ -12,11 +12,29 @@ public class Function {
     // once defined number of arguments for function is final (?)
     
     // ToDo : isnt it better to consider operands from which some are input and some are output ???
-    Variable [] input;
-    Variable [] output;
+    //Variable [] input;
+    //Variable [] output;
+    Argument [] args;
     CodeBlock body;      // if code block is =0 it is fundamental
     
+    /*
+    void argFromString(int i, String s){
+        args[i]=Argument
+    }
+    */
+    
     Function(String name_){ name=name_; }
+    
+    Function(String name_, String[] args_, Scope scope ){
+        inScope = scope;
+        name=name_;
+        args = new Argument[args_.length];
+        for(int i=0; i<args_.length; i++){
+            args[i] = new Argument(args_[i],scope);
+        }
+    }
+        
+    /*
     Function(String name_, String[] input_, String[] output_, Scope scope ){
         inScope = scope;
         name=name_;
@@ -33,6 +51,7 @@ public class Function {
             output[i] = new Variable("out"+i, t  );
         }
     }
+    */
     
     void eval(){
         // this is for fundamental functions
@@ -42,6 +61,14 @@ public class Function {
         //}
     }
     
+    
+    public String toString(){
+        String argS="";
+        for(int i=0; i<args.length;  i++){ argS +=args[i]+", "; }
+        return name+"("+argS+")";
+    }
+        
+    /*
     @Override
     public String toString(){
         String inS="";
@@ -50,5 +77,5 @@ public class Function {
         for(int i=0; i<output.length; i++){ outS+=output[i]+", "; }
         return name+"("+inS+")->("+outS+")";
     }
-    
+    */
 }
