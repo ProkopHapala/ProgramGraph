@@ -6,8 +6,8 @@
 package programgraph;
 
 public class Argument {
-    //int      access; // in/out, inout, reference
-    char     access;
+    //enum Access{ IN,OUT,INOUT,REF };
+    char     access;  // <IN >OUT *INOUT &REF
     String   name;
     Type     type;
     Variable bind;

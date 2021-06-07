@@ -1,9 +1,21 @@
 
 package programgraph;
 
+/*
+
+ * Functions are overloaded a bit like in Julia
+ * Function can be defined both type-bound and type-unbound (accepting "Any" argument type )
+    * "Any" type does not have to be specified  
+    * for this type unbound function additional type-bound can be set within the function body (not in header)
+      * there can be dynamical dispath for type-unbound function within the body
+    * by default the type-unbound version of function ("Any") should be probably undefined 
+
+
+*/
+
 import java.util.ArrayList;
 
-public class Function {
+abstract public class Function {
     String name;
     Scope  inScope;
     // ToDo : what about named variables ?
@@ -15,7 +27,7 @@ public class Function {
     //Variable [] input;
     //Variable [] output;
     Argument [] args;
-    CodeBlock body;      // if code block is =0 it is fundamental
+
     
     /*
     void argFromString(int i, String s){
@@ -23,9 +35,10 @@ public class Function {
     }
     */
     
-    Function(String name_){ name=name_; }
     
-    Function(String name_, String[] args_, Scope scope ){
+    Function( String name_ ){ name=name_; }
+    Function( String name_, String[] args_, Scope scope ){
+        //super(name_);
         inScope = scope;
         name=name_;
         args = new Argument[args_.length];
@@ -33,25 +46,6 @@ public class Function {
             args[i] = new Argument(args_[i],scope);
         }
     }
-        
-    /*
-    Function(String name_, String[] input_, String[] output_, Scope scope ){
-        inScope = scope;
-        name=name_;
-        input  = new Variable[input_.length];
-        output = new Variable[output_.length];
-        for(int i=0; i<input_.length; i++){
-            Type t = scope.find_type(input_[i]);
-            if(t==null){ System.out.println("ERROR: type '"+input_[i]+"' not found in scope"); }
-            input[i] = new Variable("in"+i, t  );
-        }
-        for(int i=0; i<output_.length; i++){
-            Type t = scope.find_type(output_[i]);
-            if(t==null){ System.out.println("ERROR: type '"+output_[i]+"' not found in scope"); }
-            output[i] = new Variable("out"+i, t  );
-        }
-    }
-    */
     
     void eval(){
         // this is for fundamental functions

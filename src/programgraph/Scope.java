@@ -16,8 +16,9 @@ public class Scope {
     }
 
     //boolean new_func( String name, String[] in, String[] out ){ return functions.put (name,new Function(name,in,out,this))!=null; }
-    boolean new_func( String name, String[] args ){ return functions.put (name,new Function(name,args,this))!=null; }
-    boolean new_func( String name ){ return functions.put   (name,new Function(name))!=null; }
+    boolean new_func           ( String name, String[] args ){ return functions.put (name,new FunctionUsr        (name,args,this))!=null; }
+    //boolean new_funcFundamental( String name, String[] args ){ return functions.put (name,new FunctionFundamental(name,args,this))!=null; }
+    //boolean new_func( String name ){ return functions.put   (name,new Function(name))!=null; }
     boolean del_func( String name ){ return functions.remove(name)!=null; }
     
     boolean new_type( String name, String parrent ){ Type par=find_type(parrent); return new_type( name, par ); }
@@ -45,5 +46,14 @@ public class Scope {
         if( (t==null) && (parent!=null) ) t=parent.find_type(name); 
         return t;
     }
-
+    Variable find_var(String name) {
+        Variable t=variables.get(name);
+        if( (t==null) && (parent!=null) ) t=parent.find_var(name); 
+        return t;
+    }
+    Function find_func(String name) {
+        Function t=functions.get(name);
+        if( (t==null) && (parent!=null) ) t=parent.find_func(name); 
+        return t;
+    }
 }
