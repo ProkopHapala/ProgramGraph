@@ -4,6 +4,8 @@ package programgraph;
 /*
 
  * Functions are overloaded a bit like in Julia
+    * There are now "methods" - but maybe will be added late (?)
+    * by A.f() We can specify method NameSpace (scope) rather than object instance 
  * Function can be defined both type-bound and type-unbound (accepting "Any" argument type )
     * "Any" type does not have to be specified  
     * for this type unbound function additional type-bound can be set within the function body (not in header)
